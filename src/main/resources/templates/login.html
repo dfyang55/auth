@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<form id="login_form">
+    <input type="text" id="username" name="username" placeholder="请输入用户名"><br>
+    <input type="password" id="password" name="password" placeholder="请输入密码"><br>
+    <button type="button" id="login_submit">登录</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script>
+    $(function () {
+        $("#login_submit").click(function() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            if (username != undefined && username != null && username != ""
+                && password != undefined && password != null && password != "") {
+                var loginJSON = JSON.stringify({"username": username,"password": password});
+                var encryptedData = CryptoJS.AES.encrypt(loginJSON, CryptoJS.enc.Base64.parse('XjjkaLnlzAFbR399IP4kdQ=='), {
+                    mode: CryptoJS.mode.ECB,
+                    padding: CryptoJS.pad.Pkcs7,
+                    length: 128
+                }).toString();
+                var timestamp = new Date().getTime();
+                var sign = CryptoJS.SHA1(encryptedData + timestamp + "QGZUanpSaSy9DEPQFVULJQ==").toString();
+                $.ajax({
+                    url: "/user/login",
+                    contentType: "application/json",
+                    type: "post",
+                    data: JSON.stringify({"sign": sign, "encryptedData": encryptedData, "timestamp": timestamp}),
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        document.cookie = "authToken=" + data.data.authToken;
+                        console.log(document.cookie)
+                    }
+                })
+            } else {
+                alert("用户名或密码不能为空");
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -15,6 +15,6 @@ import java.lang.annotation.Target;
 public @interface DecryptAndVerify {
 
     /** 解密后的参数类型 */
-    Class<?> decryptedClass() default Object.class;
+    Class<?> decryptedClass();
 
 }

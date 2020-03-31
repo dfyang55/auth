@@ -25,6 +25,10 @@ public class ResponseVo {
         return new ResponseVo(ResponseStatusEnum.SUCCESS.getStatus(), ResponseStatusEnum.SUCCESS.getMsg(), null);
     }
 
+    public static ResponseVo getSuccess(Object data) {
+        return new ResponseVo(ResponseStatusEnum.SUCCESS.getStatus(), ResponseStatusEnum.SUCCESS.getMsg(), data);
+    }
+
     public static ResponseVo getFailure(ResponseStatusEnum responseStatusEnum) {
         return new ResponseVo(responseStatusEnum.getStatus(), responseStatusEnum.getMsg(), null);
     }

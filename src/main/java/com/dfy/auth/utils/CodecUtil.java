@@ -93,9 +93,10 @@ public class CodecUtil {
 //        String decData = aesDecrypt(encData);
 //        System.out.println(decData);
 //        System.out.println(sha1Encrypt("dfy")); // 使用SHA1进行加密 54a18b6b252567733db853dd93d5999920c3581b
+        System.out.println(sha1Encrypt("this is a test"));
         long timestamp = System.currentTimeMillis();
         System.out.println("时间戳：" + timestamp);
-        UserLoginReq userLoginReq = new UserLoginReq("admin1", "admin");
+        UserLoginReq userLoginReq = new UserLoginReq("admin", "admin");
         String data = JSON.toJSONString(userLoginReq);
         System.out.println("加密前的数据：" + data);
         String encryptedData = CodecUtil.aesEncrypt(data);

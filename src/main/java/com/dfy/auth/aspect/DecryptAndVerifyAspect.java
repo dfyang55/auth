@@ -5,7 +5,6 @@ import com.dfy.auth.annotation.DecryptAndVerify;
 import com.dfy.auth.exception.DecryptAndVerifyException;
 import com.dfy.auth.utils.CodecUtil;
 import com.dfy.auth.vo.EncryptedReq;
-import com.dfy.auth.vo.UserLoginReq;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
